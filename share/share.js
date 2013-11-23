@@ -1,12 +1,11 @@
-// Some license here. Free for everything, of course.
-
-// Share
+// Build mailto: link
 function constructEmailUrl(target, title, text) {
 	return "mailto:" + encodeURIComponent(target) + "?" + 
         "subject=" + encodeURIComponent(title) + 
         "&body=" + encodeURIComponent(text);
 }
 
+// TODO: add support for custom message
 function shareClick(info, tab, recipient) {
 	var link = info.linkUrl;
 	var element = document.getElementById(info.parentMenuItem);
@@ -16,25 +15,25 @@ function shareClick(info, tab, recipient) {
 	}
 	var text = "Check this out! " + link;
 	
-	//dialog box for address
 	var address = recipient || "";
 
 	var url = constructEmailUrl(address, title, text);
 	chrome.tabs.create({ url: url });
 }
 
-// Add the context menu
 
 // Get recipients
 var recipients = window.localStorage.recipients;
 
 if (recipients === undefined || recipients.length === undefined || recipients.length === 0) {
+  // If no recipients are configured, add simple menu item
 	chrome.contextMenus.create({
 		"title": "Share this link",
 		"contexts": ["link"], 
 		"onclick": shareClick
 	});
 } else {
+  // Add a group if recipients are defined
 	var parent = chrome.contextMenus.create({
 		"title": "Share this link with...",
 		"contexts": ["link"]
