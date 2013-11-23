@@ -1,0 +1,20 @@
+{
+	"manifest_version": 2,
+	"version": "0.1",
+	"name": "Share Link",
+	"permissions": [
+		"contextMenus"
+	],
+	"background": {
+		"scripts": [
+			"share.js"
+		]
+	},
+	"icons": {
+		"16": "icon/icon16.png",
+		"24": "icon/icon24.png",
+		"32": "icon/icon32.png",
+		"64": "icon/icon64.png"
+	},
+	"options_page": "options.html"
+}
