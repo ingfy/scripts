@@ -3,6 +3,8 @@
 	"version": "0.1",
 	"name": "Share Link",
 	"permissions": [
+        "tabs",
+        "*://*/*",
 		"contextMenus"
 	],
 	"background": {
@@ -10,6 +12,12 @@
 			"share.js"
 		]
 	},
+    "content_scripts": [
+        {
+            "matches": ["*://*/*"],
+            "js": ["content.js"]
+        }
+    ],
 	"icons": {
 		"16": "icon/icon16.png",
 		"24": "icon/icon24.png",

@@ -7,36 +7,41 @@ function constructEmailUrl(target, title, text) {
 
 // TODO: add support for custom message
 function shareClick(info, tab, recipient) {
-	var link = info.linkUrl;
-	var element = document.getElementById(info.parentMenuItem);
-	var title = "I am sharing this link with you!";
-	if (element) {
-		title = element.innerHTML;
-	}
-	var text = "Check this out! " + link;
-	
+    var link = info.linkUrl || info.srcUrl;
+    var text = "Check this out! " + link;
 	var address = recipient || "";
 
-	var url = constructEmailUrl(address, title, text);
-	chrome.tabs.create({ url: url });
+    requestClickedElementText(tab, function(title) {
+        var url = constructEmailUrl(address, title, text);
+	    chrome.tabs.create({ url: url });
+    });
+}
+
+function requestClickedElementText(tab, callback) {
+    chrome.tabs.sendMessage(tab.id, 
+        "clicked_element_text", function(response) {
+        var defaultText = "I am sharing this link with you!";
+        callback((response ? response.text : "") || defaultText);
+    });
 }
 
 
 // Get recipients
 var recipients = window.localStorage.recipients;
+var contexts = ["all"];
 
 if (recipients === undefined || recipients.length === undefined || recipients.length === 0) {
   // If no recipients are configured, add simple menu item
 	chrome.contextMenus.create({
-		"title": "Share this link",
-		"contexts": ["link"], 
+		"title": "Share this",
+		"contexts": contexts, 
 		"onclick": shareClick
 	});
 } else {
   // Add a group if recipients are defined
 	var parent = chrome.contextMenus.create({
-		"title": "Share this link with...",
-		"contexts": ["link"]
+		"title": "Share this with...",
+		"contexts": contexts
 	});
 	
 	var rs = recipients.split(",");
@@ -44,7 +49,7 @@ if (recipients === undefined || recipients.length === undefined || recipients.le
 		chrome.contextMenus.create({
 			"title": r,
 			"parentId": parent,
-			"contexts": ["link"],
+			"contexts": contexts,
 			"onclick": function(info, tab) {
 				shareClick(info, tab, r);
 			}
