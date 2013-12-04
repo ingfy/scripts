@@ -8,7 +8,8 @@ function constructEmailUrl(target, title, text) {
 // TODO: add support for custom message
 function shareClick(info, tab, recipient) {
     var link = info.linkUrl || info.srcUrl;
-    var text = "Check this out! " + link;
+    var customMessage = window.localStorage.message;
+    var text = (customMessage || "Check this out!") + " " + link;
 	var address = recipient || "";
 
     requestClickedElementText(tab, function(title) {

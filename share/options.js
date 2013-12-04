@@ -1,20 +1,28 @@
-function loadRecipients() {
+function loadOpts() {
 	var emails = window.localStorage.recipients;
 	console.log('loaded');
 	console.log(emails);
 	if (emails === undefined)
 		emails = [];
 
+    var message = window.localStorage.message;
+
 	var recipients = document.getElementById('recipientsArea');
 	recipients.value = emails.split(',').join('\n');
+
+    var messageArea = document.getElementById('messageArea');
+    message.value = message;
 }
 
 
-function saveRecipients() {
+function saveOpts() {
 	var recipients = document.getElementById('recipientsArea');
 	window.localStorage.recipients = recipients.value.split('\n');
+
+    var message = document.getElementById('messageArea');
+    window.localStorage.message = message.value;    
+
 	console.log('saved');
-	console.log(window.localStorage.recipients);
 	
 	var status = document.getElementById('status');
 	status.innerHTML = "Recipients updated.";
@@ -23,5 +31,5 @@ function saveRecipients() {
 	}, 1000);
 }
 
-document.addEventListener('DOMContentLoaded', loadRecipients);
-document.getElementById('save').addEventListener('click', saveRecipients);
+document.addEventListener('DOMContentLoaded', loadOpts);
+document.getElementById('save').addEventListener('click', saveOpts);
