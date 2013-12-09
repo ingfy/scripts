@@ -5,7 +5,6 @@ function constructEmailUrl(target, title, text) {
         "&body=" + encodeURIComponent(text);
 }
 
-// TODO: add support for custom message
 function shareClick(info, tab, recipient) {
     var link = info.linkUrl || info.srcUrl;
     var customMessage = window.localStorage.message;
@@ -31,7 +30,9 @@ function requestClickedElementText(tab, callback) {
 var recipients = window.localStorage.recipients;
 var contexts = ["all"];
 
-if (recipients === undefined || recipients.length === undefined || recipients.length === 0) {
+if (recipients === undefined 
+    || recipients.length === undefined 
+    || recipients.length === 0) {
   // If no recipients are configured, add simple menu item
 	chrome.contextMenus.create({
 		"title": "Share this",
