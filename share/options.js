@@ -1,17 +1,13 @@
 function loadOpts() {
-	var emails = window.localStorage.recipients;
-	console.log('loaded');
-	console.log(emails);
-	if (emails === undefined)
-		emails = [];
+	var emails = window.localStorage.recipients || [];
+    var message = window.localStorage.message || "";
 
-    var message = window.localStorage.message;
-
-	var recipients = document.getElementById('recipientsArea');
-	recipients.value = emails.split(',').join('\n');
+	var recipientssArea = document
+        .getElementById('recipientsArea');
+	recipientsArea.value = emails.split(',').join('\n');
 
     var messageArea = document.getElementById('messageArea');
-    message.value = message;
+    messageArea.value = message;
 }
 
 
@@ -22,10 +18,9 @@ function saveOpts() {
     var message = document.getElementById('messageArea');
     window.localStorage.message = message.value;    
 
-	console.log('saved');
-	
 	var status = document.getElementById('status');
-	status.innerHTML = "Recipients updated.";
+	status.innerHTML = status
+        .attributes['data-ok-text'].textContent;
 	setTimeout(function() {
 		status.innerHTML = "";
 	}, 1000);
