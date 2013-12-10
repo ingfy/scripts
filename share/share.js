@@ -8,20 +8,27 @@ function constructEmailUrl(target, title, text) {
 function shareClick(info, tab, recipient) {
     var link = info.linkUrl || info.srcUrl;
     var customMessage = window.localStorage.message;
-    var text = (customMessage || "Check this out!") + " " + link;
 	var address = recipient || "";
 
-    requestClickedElementText(tab, function(title) {
+    requestClickedElementText(tab, link, 
+        function(title, link) {
+        var text = (customMessage || "Check this out!") + 
+            " " + link;
         var url = constructEmailUrl(address, title, text);
 	    chrome.tabs.create({ url: url });
     });
 }
 
-function requestClickedElementText(tab, callback) {
+function requestClickedElementText(tab, link, callback) {
     chrome.tabs.sendMessage(tab.id, 
         "clicked_element_text", function(response) {
         var defaultText = "I am sharing this link with you!";
-        callback((response ? response.text : "") || defaultText);
+        var text = defaultText;
+        if (response != null && response.type == 'DOCUMENT') {
+            link = response.url;
+        }
+        callback((response ? response.text : "") || defaultText,
+            link);
     });
 }
 
