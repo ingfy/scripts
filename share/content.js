@@ -42,13 +42,24 @@ function getElementText(element, std) {
          */
         var a = getOuterOfType(element, 'A');
         if (a !== null && a.textContent)
-            return { text: a.textContent, type: 'A'};
-        if (element.tagName === 'IMG' && 
-                (element.title || element.alt)) 
             return { 
-                text: element.title || element.alt, 
+                text: a.textContent, 
+                type: 'A'
+            };
+        if (element.tagName === 'IMG') {
+            if (element.title || element.alt) {
+                return { 
+                    text: element.title || element.alt, 
+                    type: 'IMG'
+                };
+            }
+            /*  Even if the image has no title or alt-text, we
+             *  still want to share the direct link to it.
+             */
+            return {
                 type: 'IMG'
             };
+        }
     }
     /*  If neither a link or image is clicked, assume that the 
      *  whole page is requested.
@@ -58,5 +69,4 @@ function getElementText(element, std) {
         url: document.URL,
         type: 'DOCUMENT'
     };
-    return null;
 }
