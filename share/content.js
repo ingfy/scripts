@@ -16,7 +16,7 @@ var clicked = (function() {
     };
 }());
 
-chrome .runtime.onMessage.addListener(
+chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
         if (request === 'clicked_element_text')
             sendResponse(getElementText(clicked.get()));

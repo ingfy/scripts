@@ -1,7 +1,8 @@
 {
 	"manifest_version": 2,
-	"version": "0.1",
-	"name": "Share Link",
+	"version": "1.0",
+	"name": "ShareByMail",
+    "description": "Share links, images or pages by right-clicking.",
 	"permissions": [
         "tabs",
         "*://*/*",

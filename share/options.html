@@ -1,16 +1,95 @@
 <html>
 <head>
-<title>Options for Share Link</title>
+<title>ShareByMail Options</title>
+<style type="text/css">
+    body {
+        font-family: Arial;
+        padding: 0;
+        margin: 0;
+    }
+    #optsWrapper {
+        padding-left: 2em;
+        padding-right: 2em;
+        width: 24em;
+    }
+    #headerWrapper {
+        padding-top: 1em;
+        padding-left: 1em;
+        background-color: #eef;
+        border-bottom: 1px solid #ddf;
+        margin: 0;
+    }
+    #save {
+        padding: 0.6em;
+    }
+    #saveWrapper {
+        margin-top: 1em;
+    }
+    .description {
+        padding-top: 0;
+        margin-top: 0;
+        font-style: italic;
+        color: #888;
+    }
+    #status {
+        color: #050;
+        font-weight: 500;
+    }
+    textarea, input {
+        width: 28em;
+        border: 1px solid black;
+    }
+    input {
+        padding: 4px;
+    }
+    h2 {
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+
+</style>
 </head>
 <body>
-<h1>Enter a list of recipients</h1>
-<textarea cols="40" rows="20" id="recipientsArea"></textarea>
-<h1>Custom message</h1>
-<textarea cols="40" rows="4" id="messageArea" placeholder="Check this out!"></textarea>
-<p>
-	<button id="save">Save</button>
-	<span id="status" data-ok-text="Options updated"></span>
-</p>
+<div id="headerWrapper">
+    <h1>
+        <img src="icon/icon32.png" />
+        ShareByMail Options
+    </h1>
+</div>
+<div id="optsWrapper">
+    <div id="recipientsWrapper">
+        <h2>Recipients List</h2>
+        <p class="description">
+            A list of e-mail adresses. One per line.
+        </p>
+        <textarea cols="45" rows="20" id="recipientsArea"
+                  placeholder="name@domain.com"></textarea>
+    </div>
+    <div id="customMessageWrapper">
+        <h2>Custom Message</h2>
+        <p class="description">
+            A standard message body of the email. The link will 
+            be added at the end of the message.
+        </p>
+        <textarea cols="45" rows="4" id="messageArea" 
+                  placeholder="Check this out!"></textarea>
+    </div>
+    <div id="defaultTitleWrapper">
+        <h2>Default Title</h2>
+        <p class="description">
+            This text will be used as the e-mail title when it
+            cannot be inferred from the context sent. For example
+            when sending an image that does not have a title or
+            alternative text.
+        </p>
+        <input  type="text" id="titleInput" 
+                placeholder="I'm sharing a link with you!" />
+    </div>
+    <div id="saveWrapper">
+    	<button id="save">Save</button>
+    	<span id="status" data-ok-text="Options updated"></span>
+    </div>
+</div>
 <script type="text/javascript" src="options.js"></script>
 </body>
 </html>
