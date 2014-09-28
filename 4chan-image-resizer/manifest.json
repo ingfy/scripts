@@ -1,0 +1,11 @@
+{
+  "manifest_version": 2,
+  "name": "4chan Image Resizer",
+  "version": "0.1",
+  "content_scripts": [
+    {
+      "matches": ["http://boards.4chan.org/*"],
+      "js": ["ext.js"]
+    }
+  ]
+}
